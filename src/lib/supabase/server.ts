@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
+import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import type { Database } from '@/types/database';
 
@@ -48,7 +49,6 @@ export function createServiceRoleClient() {
       'SUPABASE_SERVICE_ROLE_KEY is not set. Server-only operations that bypass RLS cannot run without it.'
     );
   }
-  const { createClient } = require('@supabase/supabase-js');
   return createClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
