@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { requireAdmin } from '@/lib/admin/guard';
 import { logAudit, snapshotRevision } from '@/lib/admin/audit';
 
@@ -32,7 +33,9 @@ export async function createInitiativeAction(formData: FormData) {
   if (error || !data) return;
   await logAudit(supabase, user, { action: 'create', entityType: 'initiatives', entityId: data.id, afterData: data });
   revalidatePath('/admin/initiatives');
-  return data.id as string;
+  // ننتقل مباشرة لصفحة تعديل المبادرة الجديدة بدل إرجاع المعرّف (حتى تتوافق
+  // الدالة مع توقيع `<form action>` الذي يتوقع void/Promise<void>).
+  redirect(`/admin/initiatives/${data.id}`);
 }
 
 export async function updateInitiativeAction(formData: FormData) {
