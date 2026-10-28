@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+  functions = "netlify/functions"
+
+[[plugins]]
+  # Required for Next.js (App Router, Server Actions, Route Handlers, ISR)
+  # to run correctly on Netlify.
+  package = "@netlify/plugin-nextjs"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Background Functions (filenames ending in `-background`) get a long
+# execution window (minutes, not seconds) automatically — no extra config
+# needed beyond the filename suffix. See netlify/functions/analyze-document-background.ts.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

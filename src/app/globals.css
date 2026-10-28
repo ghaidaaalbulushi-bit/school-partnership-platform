@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream-50, #fdfbf5);
+  color: var(--color-navy-800, #0f233a);
+}
+
+/* Respect the user's OS-level reduced-motion preference by default.
+   The admin "reduced_motion_respect" theme toggle, when off, adds
+   .motion-ok to <html> to override this (see ThemeProvider). */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-ok) *,
+  html:not(.motion-ok) *::before,
+  html:not(.motion-ok) *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background-color: var(--color-sky-200, #bae6fd);
+  color: var(--color-navy-900, #0a1a2b);
+}
+
+/* Rich text content rendered from section_blocks (admin WYSIWYG output) */
+.prose-rtl {
+  line-height: 1.9;
+}
+.prose-rtl p {
+  margin-bottom: 1rem;
+}
+.prose-rtl ul,
+.prose-rtl ol {
+  margin-inline-start: 1.5rem;
+  margin-bottom: 1rem;
+}
+.prose-rtl ul {
+  list-style-type: disc;
+}
+.prose-rtl ol {
+  list-style-type: decimal;
+}
+.prose-rtl h1,
+.prose-rtl h2,
+.prose-rtl h3 {
+  font-weight: 700;
+  color: var(--color-navy-700, #16304d);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.prose-rtl a {
+  color: var(--color-sky-600, #0284c7);
+  text-decoration: underline;
+}
