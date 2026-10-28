@@ -1,13 +1,15 @@
 'use client';
 
-import { useActionState } from 'react';
+// React 18.3.1 لا يصدّر useActionState (أُضيفت في React 19)؛ البديل في
+// React 18 هو useFormState من 'react-dom'.
+import { useFormState } from 'react-dom';
 import { updateSiteSettingsAction } from './actions';
 import { Field, TextInput, TextArea, SubmitButton, FormMessage } from '@/components/admin/forms';
 import { Card } from '@/components/ui/Card';
 import type { SiteSettings } from '@/types/database';
 
 export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
-  const [state, formAction] = useActionState(updateSiteSettingsAction, undefined);
+  const [state, formAction] = useFormState(updateSiteSettingsAction, undefined);
 
   return (
     <form action={formAction} className="space-y-6">

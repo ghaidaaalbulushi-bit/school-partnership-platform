@@ -26,16 +26,27 @@ export function TextArea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return <textarea {...props} rows={props.rows ?? 4} className={cn(inputClass, 'resize-y', props.className)} />;
 }
 
-export function SubmitButton({ children = 'حفظ' }: { children?: ReactNode }) {
+export function SubmitButton({
+  children = 'حفظ',
+  className,
+  pendingText,
+}: {
+  children?: ReactNode;
+  className?: string;
+  pendingText?: string;
+}) {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
-      className="flex items-center gap-2 rounded-full bg-sky-500 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-sky-600 disabled:opacity-60"
+      className={
+        className ??
+        'flex items-center gap-2 rounded-full bg-sky-500 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-sky-600 disabled:opacity-60'
+      }
     >
       {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-      {children}
+      {pending && pendingText ? pendingText : children}
     </button>
   );
 }

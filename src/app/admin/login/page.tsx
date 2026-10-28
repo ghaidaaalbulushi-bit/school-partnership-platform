@@ -1,12 +1,16 @@
 'use client';
 
-import { useActionState } from 'react';
+// المشروع يستخدم React 18.3.1 (وليس 19)، فـ useActionState غير متوفر من 'react'.
+// البديل الصحيح في React 18 هو useFormState من 'react-dom'، وحالة "جارٍ الإرسال"
+// (pending) تُقرأ عبر useFormStatus من 'react-dom' داخل عنصر ابن لعنصر <form>.
+import { useFormState } from 'react-dom';
 import { LogIn } from 'lucide-react';
 import { loginAction } from './actions';
 import { SchoolLogo } from '@/components/SchoolLogo';
+import { SubmitButton } from '@/components/admin/forms';
 
 export default function AdminLoginPage() {
-  const [state, formAction, pending] = useActionState(loginAction, undefined);
+  const [state, formAction] = useFormState(loginAction, undefined);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-sky-50 via-cream-50 to-mint-50 px-4">
@@ -47,14 +51,13 @@ export default function AdminLoginPage() {
 
           {state?.error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-600">{state.error}</p>}
 
-          <button
-            type="submit"
-            disabled={pending}
+          <SubmitButton
             className="flex w-full items-center justify-center gap-2 rounded-full bg-navy-700 px-6 py-3 text-sm font-bold text-white transition hover:bg-navy-800 disabled:opacity-60"
+            pendingText="جارٍ الدخول..."
           >
             <LogIn className="h-4 w-4" />
-            {pending ? 'جارٍ الدخول...' : 'تسجيل الدخول'}
-          </button>
+            تسجيل الدخول
+          </SubmitButton>
         </form>
 
         <p className="mt-6 text-center text-xs text-navy-400">

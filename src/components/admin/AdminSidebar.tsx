@@ -24,18 +24,18 @@ import { SchoolLogo } from '@/components/SchoolLogo';
 
 const NAV = [
   { href: '/admin', label: 'نظرة عامة', icon: LayoutDashboard, exact: true },
-  { href: '/admin/site-settings', label: 'بيانات المدرسة والصفحة الرئيسية', icon: Home },
-  { href: '/admin/administration', label: 'الإدارة المدرسية', icon: UserRound },
-  { href: '/admin/nav', label: 'عناصر القائمة والتذييل', icon: LayoutList },
-  { href: '/admin/indicators', label: 'المؤشرات والمعايير', icon: FolderTree },
-  { href: '/admin/initiatives', label: 'المبادرات والفعاليات', icon: Sparkles },
-  { href: '/admin/media', label: 'الصور والفيديوهات والملفات', icon: ImageIcon },
-  { href: '/admin/reports', label: 'التقارير', icon: FileText },
-  { href: '/admin/ai', label: 'المساعد الذكي', icon: Bot },
-  { href: '/admin/stats', label: 'الإحصائيات', icon: BarChart3 },
-  { href: '/admin/design', label: 'إعدادات التصميم', icon: Palette },
-  { href: '/admin/settings', label: 'إعدادات الموقع', icon: Settings },
-  { href: '/admin/audit-log', label: 'سجل التعديلات', icon: History },
+  { href: '/admin/site-settings', label: 'بيانات المدرسة والصفحة الرئيسية', icon: Home, exact: false },
+  { href: '/admin/administration', label: 'الإدارة المدرسية', icon: UserRound, exact: false },
+  { href: '/admin/nav', label: 'عناصر القائمة والتذييل', icon: LayoutList, exact: false },
+  { href: '/admin/indicators', label: 'المؤشرات والمعايير', icon: FolderTree, exact: false },
+  { href: '/admin/initiatives', label: 'المبادرات والفعاليات', icon: Sparkles, exact: false },
+  { href: '/admin/media', label: 'الصور والفيديوهات والملفات', icon: ImageIcon, exact: false },
+  { href: '/admin/reports', label: 'التقارير', icon: FileText, exact: false },
+  { href: '/admin/ai', label: 'المساعد الذكي', icon: Bot, exact: false },
+  { href: '/admin/stats', label: 'الإحصائيات', icon: BarChart3, exact: false },
+  { href: '/admin/design', label: 'إعدادات التصميم', icon: Palette, exact: false },
+  { href: '/admin/settings', label: 'إعدادات الموقع', icon: Settings, exact: false },
+  { href: '/admin/audit-log', label: 'سجل التعديلات', icon: History, exact: false },
 ] as const;
 
 export function AdminSidebar() {
