@@ -35,8 +35,14 @@ export async function updateSession(request: NextRequest) {
 
   const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
   const isLoginRoute = request.nextUrl.pathname === '/admin/login';
+  // Public, unauthenticated admin auth routes — password reset must stay
+  // reachable even with no session yet (the recovery session is only
+  // established client-side from the email link's URL fragment).
+  const isPublicAuthRoute =
+    request.nextUrl.pathname === '/admin/forgot-password' ||
+    request.nextUrl.pathname === '/admin/reset-password';
 
-  if (isAdminRoute && !isLoginRoute && !user) {
+  if (isAdminRoute && !isLoginRoute && !isPublicAuthRoute && !user) {
     const loginUrl = new URL('/admin/login', request.url);
     loginUrl.searchParams.set('redirectedFrom', request.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);

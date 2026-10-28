@@ -51,6 +51,12 @@ export default function AdminLoginPage() {
 
           {state?.error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-600">{state.error}</p>}
 
+          <div className="text-left">
+            <a href="/admin/forgot-password" className="text-xs font-bold text-sky-600 hover:text-sky-700">
+              نسيت كلمة المرور؟
+            </a>
+          </div>
+
           <SubmitButton
             className="flex w-full items-center justify-center gap-2 rounded-full bg-navy-700 px-6 py-3 text-sm font-bold text-white transition hover:bg-navy-800 disabled:opacity-60"
             pendingText="جارٍ الدخول..."
