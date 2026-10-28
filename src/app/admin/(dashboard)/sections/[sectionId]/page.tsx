@@ -15,6 +15,7 @@ import {
 } from '@/app/admin/(dashboard)/indicators/[id]/sections/actions';
 import { createSectionAction } from '@/app/admin/(dashboard)/indicators/[id]/sections/actions';
 import { SectionCard } from '@/components/SectionCard';
+import { SectionEvidenceUploader } from '@/components/admin/SectionEvidenceUploader';
 import type { SectionRow, SectionBlock, LinkItem, Evidence, MediaFile, Indicator } from '@/types/database';
 
 export default async function AdminSectionDetailPage({ params }: { params: Promise<{ sectionId: string }> }) {
@@ -159,23 +160,30 @@ export default async function AdminSectionDetailPage({ params }: { params: Promi
           ))}
           {!(evidenceRows as Evidence[] | null)?.length && <p className="text-sm text-navy-500">لا توجد شواهد بعد.</p>}
         </div>
-        <form action={attachEvidenceAction} className="flex flex-col gap-3 sm:flex-row sm:items-end">
-          <input type="hidden" name="section_id" value={sec.id} />
-          <div className="flex-1">
-            <label className="mb-1.5 block text-sm font-bold text-navy-700">اختاري ملفًا مرفوعًا مسبقًا</label>
-            <select name="media_file_id" required className="w-full rounded-xl border border-sky-200 px-4 py-2.5 text-sm">
-              <option value="">— اختاري ملفًا —</option>
-              {(mediaFiles as MediaFile[] | null)?.map((m) => (
-                <option key={m.id} value={m.id}>{m.file_name}</option>
-              ))}
-            </select>
-          </div>
-          <TextInput name="title" placeholder="عنوان الشاهد (اختياري)" className="flex-1" />
-          <SubmitButton>إرفاق كشاهد</SubmitButton>
-        </form>
-        <p className="mt-2 text-xs text-navy-400">
-          لرفع ملف جديد أولًا، توجّهي إلى <Link href="/admin/media" className="font-bold text-sky-600 underline">إدارة الملفات</Link>.
-        </p>
+
+        <SectionEvidenceUploader sectionId={sec.id} />
+
+        <details className="rounded-xl border border-sky-100 p-3">
+          <summary className="cursor-pointer text-sm font-bold text-navy-700">
+            أو اختاري ملفًا مرفوعًا مسبقًا من مكتبة الملفات
+          </summary>
+          <form action={attachEvidenceAction} className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end">
+            <input type="hidden" name="section_id" value={sec.id} />
+            <div className="flex-1">
+              <select name="media_file_id" required className="w-full rounded-xl border border-sky-200 px-4 py-2.5 text-sm">
+                <option value="">— اختاري ملفًا —</option>
+                {(mediaFiles as MediaFile[] | null)?.map((m) => (
+                  <option key={m.id} value={m.id}>{m.file_name}</option>
+                ))}
+              </select>
+            </div>
+            <TextInput name="title" placeholder="عنوان الشاهد (اختياري)" className="flex-1" />
+            <SubmitButton>إرفاق كشاهد</SubmitButton>
+          </form>
+          <p className="mt-2 text-xs text-navy-400">
+            لإدارة كل الملفات المرفوعة، توجّهي إلى <Link href="/admin/media" className="font-bold text-sky-600 underline">إدارة الملفات</Link>.
+          </p>
+        </details>
       </Card>
     </div>
   );
